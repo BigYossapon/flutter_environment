@@ -7,11 +7,11 @@ class Environment {
 
   static String get fileName {
     if (kReleaseMode) {
-      return ".env.production";
+      return "lib/config/.env.production";
     } else if (kProfileMode) {
-      return ".env.profile";
+      return "lib/config/.env.profile";
     }
-    return ".env.development";
+    return "lib/config/.env.development";
   }
 
   //ตัวแปลที่ต้องการจะเรียกจาก ไฟล์  env. อื่นๆ

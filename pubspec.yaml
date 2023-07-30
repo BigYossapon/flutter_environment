@@ -66,9 +66,7 @@ flutter:
     - lib/config/.env.development
     - lib/config/.env.production
     - lib/config/.env.profile
-    - .env.development
-    - .env.production
-    - .env.profile
+  
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

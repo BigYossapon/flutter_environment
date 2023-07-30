@@ -10,8 +10,7 @@ import 'environment.dart';
 // fileName: 'lib/config/.env.production');
 void main() async {
   //initial dotenv และชื่อไฟล์ เพื่อทำการcall check ว่าอยู่ใน mode ไหน
-  await dotenv.load(
-      fileName: 'lib/config/.env.production'); //path to your .env file
+  await dotenv.load(fileName: Environment.fileName); //path to your .env file
   runApp(const MyApp());
 }
 
