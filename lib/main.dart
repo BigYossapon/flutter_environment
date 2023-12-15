@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'environment.dart';
 
@@ -10,7 +11,9 @@ import 'environment.dart';
 // fileName: 'lib/config/.env.production');
 void main() async {
   //initial dotenv และชื่อไฟล์ เพื่อทำการcall check ว่าอยู่ใน mode ไหน
+  //await ScreenUtil.ensureScreenSize();
   await dotenv.load(fileName: Environment.fileName); //path to your .env file
+  //await ScreenUtil.ensureScreenSize();
   runApp(const MyApp());
 }
 
@@ -20,31 +23,42 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a blue toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: MyHomePage(
-        title: dotenv.env['API_URL'] ?? 'API_URL not found',
-      ),
+    return ScreenUtilInit(
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            useMaterial3: true,
+          ),
+          initialRoute: '/login',
+          routes: <String, WidgetBuilder>{
+            '/login': (BuildContext context) => MyHomePage(
+                  title: '',
+                ),
+            '/': (BuildContext context) => MyWidget(),
+          },
+        );
+      },
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Flutter Demo',
+    //   theme: ThemeData(
+    //     colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+    //     useMaterial3: true,
+    //   ),
+    //   initialRoute: '/login',
+    //   routes: <String, WidgetBuilder>{
+    //     '/login': (BuildContext context) => MyHomePage(
+    //           title: '',
+    //         ),
+    //     '/': (BuildContext context) => MyWidget(),
+    //   },
+    // );
   }
 }
 
@@ -133,5 +147,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  const MyWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
